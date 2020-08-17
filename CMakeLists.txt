@@ -3,16 +3,16 @@ project(rear_sight_clone_project)
 
 set(CMAKE_CXX_STANDARD 20)
 
-#add_executable(rear_sight rear_sight_webrtc_frame_change.cpp
-add_executable(rear_sight   rear_sight_webrtc_frame_change_raspberry_embedded.cpp
+add_executable(rear_sight rear_sight_webrtc_frame_change.cpp
+#add_executable(rear_sight   rear_sight_webrtc_frame_change_raspberry_embedded.cpp
                             rear_sight_processor/image_processing.h
                             rear_sight_processor/rear_sight_processor.h
                             rear_sight_processor/rear_sight_processor.cpp)
 #add_executable(rear_sight web_sockets/WebServer.h
 #                          web_sockets/WebServer.cpp)
 
-target_link_libraries(rear_sight seasocks "${ZLIB_LIBRARIES}")
-target_link_libraries(rear_sight pthread z)
+#target_link_libraries(rear_sight seasocks "${ZLIB_LIBRARIES}")
+#target_link_libraries(rear_sight pthread z)
 
 #target_link_libraries(rear_sight curses)  #this one is used for keyboard handling (but it doesn't work correctly)
 #target_link_libraries(rear_sight ncurses) #this one is used for keyboard handling (but it doesn't work correctly)
