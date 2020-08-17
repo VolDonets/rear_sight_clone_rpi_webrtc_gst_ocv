@@ -3,11 +3,12 @@ project(rear_sight_clone_project)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(rear_sight rear_sight_webrtc_frame_change.cpp
-#add_executable(rear_sight   rear_sight_webrtc_frame_change_raspberry_embedded.cpp
+#add_executable(rear_sight rear_sight_webrtc_frame_change.cpp                        #for testing on your PC under Linux OS
+add_executable(rear_sight   rear_sight_webrtc_frame_change_raspberry_embedded.cpp   #for working with RPI
                             rear_sight_processor/image_processing.h
                             rear_sight_processor/rear_sight_processor.h
-                            rear_sight_processor/rear_sight_processor.cpp)
+#                            rear_sight_processor/rear_sight_processor.cpp)                           #for zooming without a frame proportionality
+                            rear_sight_processor/rear_sight_processor_keep_frame_proportionality.cpp) #for zooming with keeping a frame proportionality
 #add_executable(rear_sight web_sockets/WebServer.h
 #                          web_sockets/WebServer.cpp)
 
