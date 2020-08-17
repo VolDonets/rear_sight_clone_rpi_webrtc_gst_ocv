@@ -147,7 +147,7 @@ ReceiverEntry* create_receiver_entry (SoupWebsocketConnection * connection) {
     error = NULL;
     /**/receiver_entry->pipeline =
                 gst_parse_launch ("webrtcbin name=webrtcbin  stun-server=stun://" STUN_SERVER " "
-                                  "v4l2src device=/dev/video2 "
+                                  "v4l2src device=/dev/video0 "
                                   "! video/x-raw,width=" STR_WIDTH ",height=" STR_HEIGHT ",framerate=" STR_FRAMERATE " "
                                   "! videoconvert name=ocvvideosrc "
                                   "! video/x-raw,format=BGRA "
