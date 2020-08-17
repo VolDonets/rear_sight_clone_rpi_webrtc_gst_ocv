@@ -12,7 +12,19 @@ RearSightProcessor::RearSightProcessor(std::shared_ptr<FrameParameters> frame_pa
     m_CROPPED_Y = frame_param->CROPPED_Y;
 }
 
+
 int RearSightProcessor::on_zoom_plus_processor() {
+    int half_zoom_step = ZOOM_STEP / 2;
+    if (m_CROPPED_HEIGHT - ZOOM_STEP <= 0 || m_CROPPED_WIDTH - ZOOM_STEP <= 0)
+        return ZOOM_OP_UNSUCCESS;
+    m_CROPPED_X += half_zoom_step;
+    m_CROPPED_Y += half_zoom_step;
+    m_CROPPED_WIDTH -= ZOOM_STEP;
+    m_CROPPED_HEIGHT -= ZOOM_STEP;
+    return OPERATION_SUCCESSFUL;
+}
+
+int RearSightProcessor::on_zoom_minus_processor() {
     int half_zoom_step = ZOOM_STEP / 2;
     if (m_CROPPED_HEIGHT == HEIGHT || m_CROPPED_WIDTH == WIDTH)
         return ZOOM_OP_UNSUCCESS;
@@ -60,17 +72,6 @@ int RearSightProcessor::on_zoom_plus_processor() {
         m_CROPPED_HEIGHT += ZOOM_STEP;
         m_CROPPED_WIDTH += ZOOM_STEP;
     }
-    return OPERATION_SUCCESSFUL;
-}
-
-int RearSightProcessor::on_zoom_minus_processor() {
-    int half_zoom_step = ZOOM_STEP / 2;
-    if (m_CROPPED_HEIGHT - ZOOM_STEP <= 0 || m_CROPPED_WIDTH - ZOOM_STEP <= 0)
-        return ZOOM_OP_UNSUCCESS;
-    m_CROPPED_X += half_zoom_step;
-    m_CROPPED_Y += half_zoom_step;
-    m_CROPPED_WIDTH -= ZOOM_STEP;
-    m_CROPPED_HEIGHT -= ZOOM_STEP;
     return OPERATION_SUCCESSFUL;
 }
 
