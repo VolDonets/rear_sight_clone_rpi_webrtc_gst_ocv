@@ -7,7 +7,11 @@
 
 #define OPERATION_SUCCESSFUL        0
 #define MOVE_OP_UNSUCCESS           -1
-#define ZOOM_OP_UNSUCCESS     -2
+#define ZOOM_OP_UNSUCCESS           -2
+
+#define MIN_ZOOM_COEFFICIENT        0.1
+#define MAX_ZOOM_COEFFICIENT        1.0
+#define ZOOMING_STEP_COEFFICIENT    0.02
 
 #include <memory>
 #include "image_processing.h"
@@ -19,6 +23,7 @@ private:
     int m_CROPPED_HEIGHT;
     int m_CROPPED_X;
     int m_CROPPED_Y;
+    double m_CURRENT_ZOOM_SIZE;
 
 public:
     RearSightProcessor(std::shared_ptr<FrameParameters> frame_param);
