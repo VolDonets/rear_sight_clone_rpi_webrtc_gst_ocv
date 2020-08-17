@@ -361,25 +361,21 @@ void soup_websocket_message_cb (G_GNUC_UNUSED SoupWebsocketConnection * connecti
         default:
             break;
     }
-    std::cout << "hey\n";
     json_parser = json_parser_new ();
     if (!json_parser_load_from_data (json_parser, data_string, -1, NULL))
         goto unknown_message;
 
-    std::cout << "hey 1\n";
     root_json = json_parser_get_root (json_parser);
     if (!JSON_NODE_HOLDS_OBJECT (root_json))
         goto unknown_message;
 
     root_json_object = json_node_get_object (root_json);
-    std::cout << "hey 2\n";
 
     if (!json_object_has_member (root_json_object, "type")) {
         g_error ("Received message without type field\n");
         goto cleanup;
     }
     type_string = json_object_get_string_member (root_json_object, "type");
-    std::cout << "hey 3\n";
     if (!json_object_has_member (root_json_object, "data")) {
         g_error ("Received message without data field\n");
         goto cleanup;
