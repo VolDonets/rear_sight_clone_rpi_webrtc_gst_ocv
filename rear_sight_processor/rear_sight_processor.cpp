@@ -34,14 +34,24 @@ int RearSightProcessor::on_zoom_plus_processor() {
             m_CROPPED_X -= ZOOM_STEP;
             m_CROPPED_WIDTH += ZOOM_STEP;
             m_CROPPED_HEIGHT += ZOOM_STEP;
+        } else if (m_CROPPED_Y + m_CROPPED_HEIGHT == HEIGHT) {
+            m_CROPPED_X -= ZOOM_STEP;
+            m_CROPPED_Y -= ZOOM_STEP;
+            m_CROPPED_WIDTH += ZOOM_STEP;
+            m_CROPPED_HEIGHT += ZOOM_STEP;
         } else {
-            m_CROPPED_X -= half_zoom_step;
+            m_CROPPED_X -= ZOOM_STEP;
             m_CROPPED_Y -= half_zoom_step;
             m_CROPPED_WIDTH += ZOOM_STEP;
             m_CROPPED_HEIGHT += ZOOM_STEP;
         }
     } else if (m_CROPPED_Y == 0) {
         m_CROPPED_X -=half_zoom_step;
+        m_CROPPED_HEIGHT += ZOOM_STEP;
+        m_CROPPED_WIDTH += ZOOM_STEP;
+    } else if (m_CROPPED_Y + m_CROPPED_HEIGHT == HEIGHT) {
+        m_CROPPED_X -= half_zoom_step;
+        m_CROPPED_Y -= ZOOM_STEP;
         m_CROPPED_HEIGHT += ZOOM_STEP;
         m_CROPPED_WIDTH += ZOOM_STEP;
     } else {
