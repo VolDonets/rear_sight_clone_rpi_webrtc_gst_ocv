@@ -43,8 +43,8 @@ ReceiverEntry *create_receiver_entry (SoupWebsocketConnection * connection);
 void destroy_receiver_entry (gpointer receiver_entry_ptr);
 
 
-GstPadProbeReturn payloader_caps_event_probe_cb (GstPad * pad,
-                                                 GstPadProbeInfo * info, gpointer user_data);
+//GstPadProbeReturn payloader_caps_event_probe_cb (GstPad * pad,
+//                                                 GstPadProbeInfo * info, gpointer user_data);
 
 void on_offer_created_cb (GstPromise * promise, gpointer user_data);
 void on_negotiation_needed_cb (GstElement * webrtcbin, gpointer user_data);
