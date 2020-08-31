@@ -7,7 +7,9 @@ add_executable(rear_sight rear_sight_webrtc_frame_change.cpp                    
 #add_executable(rear_sight   rear_sight_webrtc_frame_change_raspberry_embedded.cpp   #for working with RPI
                             rear_sight_processor/image_processing.h
                             rear_sight_processor/rear_sight_processor.h                          #for zooming without a frame proportionality
-                            rear_sight_processor/rear_sight_processor_keep_frame_proportionality.cpp face_detector_ocv/face_detection_processor.cpp face_detector_ocv/face_detection_processor.h) #for zooming with keeping a frame proportionality
+                            rear_sight_processor/rear_sight_processor_keep_frame_proportionality.cpp
+                            face_detector_ocv/face_detection_processor.cpp
+                            face_detector_ocv/face_detection_processor.h) #for zooming with keeping a frame proportionality
 
 
 #target_link_libraries(rear_sight seasocks "${ZLIB_LIBRARIES}")
@@ -19,6 +21,8 @@ add_executable(rear_sight rear_sight_webrtc_frame_change.cpp                    
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 target_link_libraries(rear_sight ${OpenCV_LIBS})
+
+target_link_libraries(rear_sight pthread z)
 
 find_package(PkgConfig)
 if (PKG_CONFIG_FOUND)
