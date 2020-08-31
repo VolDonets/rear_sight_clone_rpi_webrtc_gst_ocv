@@ -16,7 +16,7 @@
 class FaceDetectionProcessor {
 private:
     std::list<cv::Mat> queueFrames;
-    std::vector<cv::Rect> *facesCoords ;
+    std::vector<cv::Rect> *facesCoords = nullptr;
     cv::CascadeClassifier cascadeClassifier;
     std::thread recognitionProcessThread;
 
