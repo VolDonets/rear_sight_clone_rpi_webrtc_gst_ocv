@@ -4,6 +4,7 @@
 
 #include "rear_sight_processor/image_processing.h"
 #include "rear_sight_processor/rear_sight_processor.h"
+#include "face_detector_ocv/face_detection_processor.h"
 
 #include <locale.h>
 #include <glib.h>
@@ -73,6 +74,8 @@ struct _ReceiverEntry
 const gchar *html_source;
 std::shared_ptr<FrameParameters> frame_param = std::make_shared<FrameParameters>();
 std::shared_ptr<RearSightProcessor> rear_sight_processor = std::make_shared<RearSightProcessor>(frame_param);
+std::shared_ptr<FaceDetectionProcessor> faceDetector = std::make_shared<FaceDetectionProcessor>();
+int frame_count = 0, max_frames = 5;
 
 /// a GstPad callback function, it is used for modification a pipeline stream
 static GstPadProbeReturn cb_have_data (GstPad *pad, GstPadProbeInfo *info, gpointer user_data) {
@@ -90,11 +93,24 @@ static GstPadProbeReturn cb_have_data (GstPad *pad, GstPadProbeInfo *info, gpoin
         return GST_PAD_PROBE_OK;
 
     if (gst_buffer_map (buffer, &map, GST_MAP_WRITE)) {
-        cv::Mat main_image, copy_main_image, done_main_image, done_mini_image, cropped_img;
+        cv::Mat main_image, copy_main_image, done_main_image, done_mini_image, cropped_img, face_det_img;
         cv::Size frame_size(WIDTH, HEIGHT);
 
         main_image = cv::Mat(frame_size, CV_8UC4, (char*)(map.data), cv::Mat::AUTO_STEP);
         copy_main_image = main_image.clone();
+
+        if (frame_count == max_frames) {
+            face_det_img = main_image.clone();
+            faceDetector->add_frame(face_det_img);
+            frame_count = 0;
+        }
+        frame_count++;
+        std::vector<cv::Rect> *faces_coords = faceDetector->getLastDetectedFaces();
+
+        if (faces_coords != nullptr)
+            for (int inx = 0; inx < faces_coords->size(); inx++) {
+                cv::rectangle(copy_main_image, faces_coords->operator[](inx), cv::Scalar(0, 255, 0), 2, 0, 0);
+            }
 
         cv::Rect my_interest_region(frame_param->CROPPED_X, frame_param->CROPPED_Y,
                                     frame_param->CROPPED_WIDTH, frame_param->CROPPED_HEIGHT);
